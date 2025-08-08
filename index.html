@@ -3,505 +3,466 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean Water & Sanitation Report System</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Tailwind CSS -->
+    <title>Clean Water and Sanitation Report System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
-    <style>
-        :root {
-            --primary-blue: #0ea5e9;
-            --secondary-blue: #0369a1;
-            --light-blue: #e0f2fe;
-            --dark-blue: #0c4a6e;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-        }
-        
-        .hero-wave {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 100px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23ffffff'%3E%3C/path%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%23ffffff'%3E%3C/path%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%23ffffff'%3E%3C/path%3E%3C/svg%3E") no-repeat;
-            background-size: cover;
-        }
-        
-        .floating-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.15);
-        }
-        
-        .chatbot-container {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(14, 165, 233, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .chatbot-container:hover {
-            box-shadow: 0 30px 80px rgba(14, 165, 233, 0.2);
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 0.2rem rgba(14, 165, 233, 0.25);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-            border: none;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
-        }
-        
-        @media (max-width: 768px) {
-            .hero-wave {
-                height: 60px;
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'water-blue': '#0EA5E9',
+                        'water-dark': '#0284C7',
+                        'water-light': '#7DD3FC',
+                    }
+                }
             }
         }
-    </style>
+    </script>
 </head>
-<body class="bg-gray-50">
-    
+<body class="bg-gradient-to-br from-blue-50 to-cyan-50 min-h-screen">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark gradient-bg fixed-top shadow-lg">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-xl" href="#home">
-                <i class="fas fa-tint text-white mr-2"></i>
-                AquaReport
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link hover:text-blue-200 transition-colors" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link hover:text-blue-200 transition-colors" href="#report">Report Issue</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link hover:text-blue-200 transition-colors" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link hover:text-blue-200 transition-colors" href="#partnerships">Partnerships</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link hover:text-blue-200 transition-colors" href="#contact">Contact</a>
-                    </li>
-                </ul>
+    <nav class="bg-gradient-to-r from-water-blue to-water-dark shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-water text-white text-2xl mr-3"></i>
+                    <span class="text-white font-bold text-xl hidden sm:block">Clean Water Initiative</span>
+                    <span class="text-white font-bold text-lg sm:hidden">CWI</span>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="sm:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white hover:text-water-light focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Desktop menu -->
+                <div class="hidden sm:flex items-center space-x-8">
+                    <a href="#home" class="text-white hover:text-water-light transition duration-200 font-medium">
+                        <i class="fas fa-home mr-1"></i>Home
+                    </a>
+                    <a href="#report" class="text-white hover:text-water-light transition duration-200 font-medium">
+                        <i class="fas fa-exclamation-triangle mr-1"></i>Report
+                    </a>
+                    <a href="#about" class="text-white hover:text-water-light transition duration-200 font-medium">
+                        <i class="fas fa-info-circle mr-1"></i>About
+                    </a>
+                    <a href="#clubs" class="text-white hover:text-water-light transition duration-200 font-medium">
+                        <i class="fas fa-users mr-1"></i>Clubs
+                    </a>
+                    <a href="#ngos" class="text-white hover:text-water-light transition duration-200 font-medium">
+                        <i class="fas fa-handshake mr-1"></i>NGOs
+                    </a>
+                    <a href="#contact" class="text-white hover:text-water-light transition duration-200 font-medium">
+                        <i class="fas fa-envelope mr-1"></i>Contact
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden sm:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="#home" class="text-white hover:text-water-light transition duration-200 py-2 font-medium">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a href="#report" class="text-white hover:text-water-light transition duration-200 py-2 font-medium">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Report Issue
+                    </a>
+                    <a href="#about" class="text-white hover:text-water-light transition duration-200 py-2 font-medium">
+                        <i class="fas fa-info-circle mr-2"></i>About Us
+                    </a>
+                    <a href="#clubs" class="text-white hover:text-water-light transition duration-200 py-2 font-medium">
+                        <i class="fas fa-users mr-2"></i>Clubs
+                    </a>
+                    <a href="#ngos" class="text-white hover:text-water-light transition duration-200 py-2 font-medium">
+                        <i class="fas fa-handshake mr-2"></i>NGOs
+                    </a>
+                    <a href="#contact" class="text-white hover:text-water-light transition duration-200 py-2 font-medium">
+                        <i class="fas fa-envelope mr-2"></i>Contact
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="position-relative gradient-bg text-white" style="padding-top: 100px; min-height: 100vh;">
-        <div class="container">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-lg-6">
-                    <div class="py-5">
-                        <h1 class="display-4 fw-bold mb-4 text-white">
-                            Clean Water & Sanitation for All
-                        </h1>
-                        <p class="lead mb-4 text-blue-100">
-                            Join our mission to ensure access to clean water and proper sanitation. 
-                            Report issues, track progress, and make a difference in your community.
-                        </p>
-                        <div class="d-flex flex-column flex-sm-row gap-3">
-                            <a href="#report" class="btn btn-light btn-lg px-4 py-3 text-blue-600 fw-semibold hover:shadow-lg transition-all">
-                                <i class="fas fa-plus-circle me-2"></i>Report Issue
-                            </a>
-                            <a href="#about" class="btn btn-outline-light btn-lg px-4 py-3 fw-semibold hover:bg-white hover:text-blue-600 transition-all">
-                                Learn More
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 text-center">
-                    <div class="floating-animation">
-                        <i class="fas fa-water display-1 text-white opacity-20"></i>
-                    </div>
-                </div>
+    <header class="bg-gradient-to-r from-water-blue to-water-dark text-white py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-pulse">
+                <i class="fas fa-water text-6xl lg:text-8xl mb-6 text-water-light"></i>
             </div>
+            <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+                Clean Water & Sanitation
+                <span class="block text-water-light">Report System</span>
+            </h1>
+            <p class="text-xl lg:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
+                Your contribution helps us ensure clean water and sanitation for all communities worldwide
+            </p>
+            <a href="#report" class="bg-white text-water-blue px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition duration-300 inline-flex items-center shadow-lg transform hover:scale-105">
+                <i class="fas fa-plus mr-2"></i>
+                Report an Issue
+            </a>
         </div>
-        <div class="hero-wave"></div>
-    </section>
+    </header>
 
-    <!-- Stats Section -->
-    <section class="py-5 bg-white">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-3 col-6 mb-4">
-                    <div class="card border-0 shadow-sm card-hover h-100">
-                        <div class="card-body p-4">
-                            <i class="fas fa-chart-line text-blue-500 display-6 mb-3"></i>
-                            <h3 class="fw-bold text-blue-600">1,250+</h3>
-                            <p class="text-muted mb-0">Reports Submitted</p>
-                        </div>
-                    </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Home Section -->
+        <section id="home" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+                        Welcome to Our Platform
+                    </h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        Help us track and resolve water quality and sanitation issues in your community. Together, we can make a difference.
+                    </p>
                 </div>
-                <div class="col-md-3 col-6 mb-4">
-                    <div class="card border-0 shadow-sm card-hover h-100">
-                        <div class="card-body p-4">
-                            <i class="fas fa-check-circle text-green-500 display-6 mb-3"></i>
-                            <h3 class="fw-bold text-green-600">890+</h3>
-                            <p class="text-muted mb-0">Issues Resolved</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6 mb-4">
-                    <div class="card border-0 shadow-sm card-hover h-100">
-                        <div class="card-body p-4">
-                            <i class="fas fa-users text-purple-500 display-6 mb-3"></i>
-                            <h3 class="fw-bold text-purple-600">45+</h3>
-                            <p class="text-muted mb-0">Partner NGOs</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6 mb-4">
-                    <div class="card border-0 shadow-sm card-hover h-100">
-                        <div class="card-body p-4">
-                            <i class="fas fa-globe text-orange-500 display-6 mb-3"></i>
-                            <h3 class="fw-bold text-orange-600">120+</h3>
-                            <p class="text-muted mb-0">Communities Served</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- AI Chatbot Section -->
-    <section class="py-5 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="text-center mb-5">
-                        <h2 class="display-5 fw-bold text-gray-800 mb-4">
-                            <i class="fas fa-robot text-blue-500 me-3"></i>
-                            AI Assistant
-                        </h2>
-                        <p class="lead text-gray-600 mb-4">
-                            Get instant help with water quality questions, reporting guidance, and sanitation advice from our intelligent chatbot.
+                <!-- Features Grid -->
+                <div class="grid md:grid-cols-3 gap-8 mb-12">
+                    <div class="text-center p-6 bg-blue-50 rounded-xl hover:bg-blue-100 transition duration-300">
+                        <i class="fas fa-tint text-4xl text-water-blue mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Water Quality</h3>
+                        <p class="text-gray-600">Monitor and report water contamination issues</p>
+                    </div>
+                    <div class="text-center p-6 bg-green-50 rounded-xl hover:bg-green-100 transition duration-300">
+                        <i class="fas fa-recycle text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Sanitation</h3>
+                        <p class="text-gray-600">Report sewage and waste management problems</p>
+                    </div>
+                    <div class="text-center p-6 bg-purple-50 rounded-xl hover:bg-purple-100 transition duration-300">
+                        <i class="fas fa-chart-line text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Impact Tracking</h3>
+                        <p class="text-gray-600">See the positive changes in your community</p>
+                    </div>
+                </div>
+
+                <!-- AI Chatbot Section -->
+                <div class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl p-8 mb-8">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full mb-4">
+                            <i class="fas fa-robot text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">💬 Chat with our AI Assistant</h3>
+                        <p class="text-gray-600 max-w-2xl mx-auto">
+                            Have questions about water quality, sanitation, or need help with reporting? Our AI chatbot is here to assist you 24/7!
                         </p>
                     </div>
-                    <div class="chatbot-container bg-white" style="height: 600px;">
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-indigo-200">
                         <iframe 
-                            class="w-100 h-100 border-0"
+                            class="w-full h-96 lg:h-[600px]"
                             src="https://cdn.botpress.cloud/webchat/v3.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/08/07/14/20250807140257-DWE2IRZ4.json"
-                            title="AI Water Quality Assistant"
+                            title="AI Chatbot Assistant"
                             allowfullscreen>
                         </iframe>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Report Issue Section -->
-    <section id="report" class="py-5 bg-white">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="text-center mb-5">
-                        <h2 class="display-5 fw-bold text-gray-800 mb-4">Report an Issue</h2>
-                        <p class="lead text-gray-600">
-                            Help us identify and resolve water quality or sanitation problems in your area.
-                        </p>
+        <!-- Report Section -->
+        <section id="report" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
+                        <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
                     </div>
-                    
-                    <div class="card shadow-lg border-0">
-                        <div class="card-body p-5">
-                            <form id="pollutionForm">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="name" class="form-label fw-semibold">
-                                            <i class="fas fa-user text-blue-500 me-2"></i>Full Name
-                                        </label>
-                                        <input type="text" class="form-control form-control-lg" id="name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="email" class="form-label fw-semibold">
-                                            <i class="fas fa-envelope text-blue-500 me-2"></i>Email Address
-                                        </label>
-                                        <input type="email" class="form-control form-control-lg" id="email" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="mobile" class="form-label fw-semibold">
-                                            <i class="fas fa-phone text-blue-500 me-2"></i>Mobile Number
-                                        </label>
-                                        <input type="tel" class="form-control form-control-lg" id="mobile" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="location" class="form-label fw-semibold">
-                                            <i class="fas fa-map-marker-alt text-blue-500 me-2"></i>Location
-                                        </label>
-                                        <input type="text" class="form-control form-control-lg" id="location" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="issueType" class="form-label fw-semibold">
-                                        <i class="fas fa-exclamation-triangle text-blue-500 me-2"></i>Issue Type
-                                    </label>
-                                    <select class="form-select form-select-lg" id="issueType" required>
-                                        <option value="">Select an issue type</option>
-                                        <option value="Sewage Leak">Sewage Leak</option>
-                                        <option value="Plastic Dumping">Plastic Dumping</option>
-                                        <option value="Water Contamination">Water Contamination</option>
-                                        <option value="Blocked Drains">Blocked Drains</option>
-                                        <option value="Poor Water Quality">Poor Water Quality</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <label for="description" class="form-label fw-semibold">
-                                        <i class="fas fa-clipboard-list text-blue-500 me-2"></i>Detailed Description
-                                    </label>
-                                    <textarea class="form-control" id="description" rows="4" 
-                                        placeholder="Please provide detailed information about the issue..." required></textarea>
-                                </div>
-                                
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary btn-lg px-5 py-3">
-                                        <i class="fas fa-paper-plane me-2"></i>Submit Report
-                                    </button>
-                                </div>
-                            </form>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">Report an Issue</h2>
+                    <p class="text-lg text-gray-600">Help us identify and resolve water quality or sanitation problems in your area</p>
+                </div>
+
+                <form id="pollutionForm" class="max-w-2xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-user mr-1"></i>Full Name *
+                            </label>
+                            <input type="text" id="name" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-water-blue focus:border-water-blue transition duration-200">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-envelope mr-1"></i>Email Address *
+                            </label>
+                            <input type="email" id="email" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-water-blue focus:border-water-blue transition duration-200">
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-5 bg-gray-50">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h2 class="display-5 fw-bold text-gray-800 mb-4">About Our Mission</h2>
-                    <p class="lead text-gray-600 mb-4">
-                        We are committed to ensuring clean water and proper sanitation for all communities. 
-                        Our platform connects citizens, NGOs, and local authorities to address water-related challenges effectively.
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="mobile" class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-phone mr-1"></i>Mobile Number *
+                            </label>
+                            <input type="tel" id="mobile" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-water-blue focus:border-water-blue transition duration-200">
+                        </div>
+                        <div>
+                            <label for="issueType" class="block text-sm font-medium text-gray-700 mb-2">
+                                <i class="fas fa-list mr-1"></i>Issue Type *
+                            </label>
+                            <select id="issueType" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-water-blue focus:border-water-blue transition duration-200">
+                                <option value="">Select an issue type</option>
+                                <option value="Sewage Leak">🚰 Sewage Leak</option>
+                                <option value="Plastic Dumping">♻️ Plastic Dumping</option>
+                                <option value="Water Contamination">💧 Water Contamination</option>
+                                <option value="Poor Sanitation">🧹 Poor Sanitation</option>
+                                <option value="Blocked Drainage">🌊 Blocked Drainage</option>
+                                <option value="Other">📝 Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="location" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-map-marker-alt mr-1"></i>Location Details *
+                        </label>
+                        <input type="text" id="location" required placeholder="Enter specific location, landmarks, or address"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-water-blue focus:border-water-blue transition duration-200">
+                    </div>
+
+                    <div class="mb-8">
+                        <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-edit mr-1"></i>Detailed Description *
+                        </label>
+                        <textarea id="description" required rows="4" 
+                            placeholder="Please provide a detailed description of the issue, including severity, duration, and any other relevant information..."
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-water-blue focus:border-water-blue transition duration-200 resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" 
+                        class="w-full bg-gradient-to-r from-water-blue to-water-dark text-white font-semibold py-4 px-8 rounded-lg hover:from-water-dark hover:to-blue-800 transition duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Submit Report
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                        <i class="fas fa-info-circle text-water-blue text-2xl"></i>
+                    </div>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">About Our Mission</h2>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        We are dedicated to ensuring clean water and sanitation for all communities worldwide. Our platform empowers citizens to report water quality and sanitation issues, creating a collaborative network for positive environmental change.
                     </p>
-                    <div class="row">
-                        <div class="col-sm-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-check-circle text-green-500 me-3"></i>
-                                <span>Community-driven reporting</span>
-                            </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Our Vision</h3>
+                            <p class="text-gray-600">A world where every person has access to clean, safe water and proper sanitation facilities.</p>
                         </div>
-                        <div class="col-sm-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-check-circle text-green-500 me-3"></i>
-                                <span>Real-time issue tracking</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-check-circle text-green-500 me-3"></i>
-                                <span>NGO partnerships</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-check-circle text-green-500 me-3"></i>
-                                <span>AI-powered assistance</span>
-                            </div>
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Our Impact</h3>
+                            <p class="text-gray-600">Through community reporting and rapid response, we've helped resolve hundreds of water and sanitation issues.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 text-center">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23E0F2FE' width='400' height='300'/%3E%3Ccircle fill='%230EA5E9' cx='200' cy='150' r='80'/%3E%3Ctext x='200' y='160' text-anchor='middle' fill='white' font-size='20'%3EClean Water%3C/text%3E%3C/svg%3E" 
-                         alt="Clean Water Mission" class="img-fluid rounded-3 shadow-lg">
-                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Partnerships Section -->
-    <section id="partnerships" class="py-5 bg-white">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold text-gray-800 mb-4">Our Partners</h2>
-                <p class="lead text-gray-600">
-                    Working together with NGOs, clubs, and community organizations to create lasting change.
-                </p>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card border-0 shadow-sm card-hover h-100">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="fas fa-hands-helping text-blue-500 display-6 me-3"></i>
-                                <h4 class="fw-bold mb-0">NGO Partners</h4>
-                            </div>
-                            <p class="text-gray-600 mb-3">
-                                Collaborating with non-profit organizations focused on water conservation, 
-                                sanitation improvement, and community health initiatives.
-                            </p>
-                            <ul class="list-unstyled">
-                                <li><i class="fas fa-circle text-blue-400 me-2" style="font-size: 8px;"></i>Water Aid International</li>
-                                <li><i class="fas fa-circle text-blue-400 me-2" style="font-size: 8px;"></i>Clean Water Foundation</li>
-                                <li><i class="fas fa-circle text-blue-400 me-2" style="font-size: 8px;"></i>Community Health Alliance</li>
-                            </ul>
-                        </div>
+        <!-- Clubs Section -->
+        <section id="clubs" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                        <i class="fas fa-users text-purple-600 text-2xl"></i>
                     </div>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">Partner Clubs</h2>
+                    <p class="text-lg text-gray-600">Our initiative collaborates with various clubs to promote awareness about water issues</p>
                 </div>
-                
-                <div class="col-md-6 mb-4">
-                    <div class="card border-0 shadow-sm card-hover h-100">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="fas fa-users text-green-500 display-6 me-3"></i>
-                                <h4 class="fw-bold mb-0">Community Clubs</h4>
-                            </div>
-                            <p class="text-gray-600 mb-3">
-                                Partnering with local clubs and organizations to raise awareness 
-                                and mobilize community action for water and sanitation issues.
-                            </p>
-                            <ul class="list-unstyled">
-                                <li><i class="fas fa-circle text-green-400 me-2" style="font-size: 8px;"></i>Environmental Action Groups</li>
-                                <li><i class="fas fa-circle text-green-400 me-2" style="font-size: 8px;"></i>Youth Water Advocates</li>
-                                <li><i class="fas fa-circle text-green-400 me-2" style="font-size: 8px;"></i>Community Watch Programs</li>
-                            </ul>
-                        </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center">
+                        <i class="fas fa-graduation-cap text-3xl text-blue-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">University Environmental Clubs</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl text-center">
+                        <i class="fas fa-leaf text-3xl text-green-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">Green Initiative Groups</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl text-center">
+                        <i class="fas fa-hands-helping text-3xl text-purple-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">Community Service Clubs</h3>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-5 bg-gray-900 text-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h2 class="display-5 fw-bold mb-4">Get in Touch</h2>
-                    <p class="lead mb-4">
-                        Have questions or suggestions? We'd love to hear from you. 
-                        Together, we can make a difference in ensuring clean water for all.
+        <!-- NGOs Section -->
+        <section id="ngos" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                        <i class="fas fa-handshake text-green-600 text-2xl"></i>
+                    </div>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">NGO Partners</h2>
+                    <p class="text-lg text-gray-600">We partner with leading NGOs to address water quality and sanitation challenges effectively</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-100 p-6 rounded-xl text-center">
+                        <i class="fas fa-water text-3xl text-cyan-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">Water.org</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-teal-100 p-6 rounded-xl text-center">
+                        <i class="fas fa-globe text-3xl text-teal-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">WaterAid</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-indigo-50 to-blue-100 p-6 rounded-xl text-center">
+                        <i class="fas fa-heart text-3xl text-indigo-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">charity: water</h3>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-xl text-center">
+                        <i class="fas fa-hands text-3xl text-purple-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">Local NGOs</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="mb-16">
+            <div class="bg-gradient-to-r from-water-blue to-water-dark rounded-2xl shadow-xl p-8 lg:p-12 text-white">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 rounded-full mb-4">
+                        <i class="fas fa-envelope text-white text-2xl"></i>
+                    </div>
+                    <h2 class="text-3xl lg:text-4xl font-bold mb-4">Get in Touch</h2>
+                    <p class="text-xl opacity-90 max-w-2xl mx-auto">
+                        Have questions, suggestions, or want to collaborate? We'd love to hear from you!
                     </p>
-                    
-                    <div class="row">
-                        <div class="col-sm-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-envelope text-blue-400 me-3"></i>
-                                <div>
-                                    <h6 class="mb-0">Email</h6>
-                                    <small class="text-gray-300">contact@aquareport.org</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-phone text-blue-400 me-3"></i>
-                                <div>
-                                    <h6 class="mb-0">Phone</h6>
-                                    <small class="text-gray-300">+1 (555) 123-4567</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                
-                <div class="col-lg-6">
-                    <div class="d-flex justify-content-center justify-content-lg-end">
-                        <div class="text-center">
-                            <i class="fas fa-water display-1 text-blue-400 mb-4"></i>
-                            <p class="text-gray-300">
-                                Join our mission for clean water and sanitation
-                            </p>
-                        </div>
+                <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <i class="fas fa-envelope text-3xl mb-3 text-water-light"></i>
+                        <h3 class="font-semibold text-lg mb-2">Email Us</h3>
+                        <p class="opacity-80">info@cleanwaterinitiative.org</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-phone text-3xl mb-3 text-water-light"></i>
+                        <h3 class="font-semibold text-lg mb-2">Call Us</h3>
+                        <p class="opacity-80">+1 (555) 123-4567</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-map-marker-alt text-3xl mb-3 text-water-light"></i>
+                        <h3 class="font-semibold text-lg mb-2">Visit Us</h3>
+                        <p class="opacity-80">123 Clean Water St, City</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-4">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="mb-0">&copy; 2025 AquaReport - Clean Water Initiative. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-md-end mt-2 mt-md-0">
-                    <div class="social-links">
-                        <a href="#" class="text-white me-3 hover:text-blue-400 transition-colors">
-                            <i class="fab fa-facebook-f"></i>
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-water text-water-blue text-2xl mr-3"></i>
+                        <span class="font-bold text-xl">Clean Water Initiative</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Making clean water and sanitation accessible to all communities worldwide through technology and community engagement.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-water-blue transition duration-200">
+                            <i class="fab fa-facebook text-xl"></i>
                         </a>
-                        <a href="#" class="text-white me-3 hover:text-blue-400 transition-colors">
-                            <i class="fab fa-twitter"></i>
+                        <a href="#" class="text-gray-400 hover:text-water-blue transition duration-200">
+                            <i class="fab fa-twitter text-xl"></i>
                         </a>
-                        <a href="#" class="text-white me-3 hover:text-blue-400 transition-colors">
-                            <i class="fab fa-linkedin-in"></i>
+                        <a href="#" class="text-gray-400 hover:text-water-blue transition duration-200">
+                            <i class="fab fa-instagram text-xl"></i>
                         </a>
-                        <a href="#" class="text-white hover:text-blue-400 transition-colors">
-                            <i class="fab fa-instagram"></i>
+                        <a href="#" class="text-gray-400 hover:text-water-blue transition duration-200">
+                            <i class="fab fa-linkedin text-xl"></i>
                         </a>
                     </div>
                 </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition duration-200">Home</a></li>
+                        <li><a href="#report" class="hover:text-white transition duration-200">Report Issue</a></li>
+                        <li><a href="#about" class="hover:text-white transition duration-200">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-white transition duration-200">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Resources</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition duration-200">Water Quality Guide</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Sanitation Tips</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Emergency Contacts</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Clean Water Initiative. All rights reserved. Making a difference, one drop at a time.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center p-5">
-                    <i class="fas fa-check-circle text-success display-3 mb-3"></i>
-                    <h4 class="fw-bold mb-3">Report Submitted Successfully!</h4>
-                    <p class="text-muted mb-4">
-                        Thank you for your report. We'll review it and take appropriate action. 
-                        You'll receive a confirmation email shortly.
-                    </p>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        // Initialize EmailJS
+        // Initialize EmailJS with your public key
         emailjs.init("i9cCFwggpMM-VLMKW");
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Add event listener to the form submission
+        document.getElementById('pollutionForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            // Show loading state
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending Report...';
+            submitBtn.disabled = true;
+
+            // Gather form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                mobile: document.getElementById('mobile').value,
+                location: document.getElementById('location').value,
+                issueType: document.getElementById('issueType').value,
+                description: document.getElementById('description').value
+            };
+
+            // Create an instance of the EmailService class
+            const emailService = new EmailService();
+            
+            // Send the report email
+            const result = await emailService.sendReport(formData);
+
+            // Reset button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+
+            // Notify the user of the result
+            if (result.success) {
+                // Success notification
+                showNotification("Report sent successfully! Thank you for helping improve water quality in your community.", "success");
+                document.getElementById('pollutionForm').reset();
+            } else {
+                // Error notification
+                showNotification("Failed to send report: " + result.error, "error");
+            }
+        });
 
         // Email Service Class
         class EmailService {
@@ -520,10 +481,11 @@
                     email: formData.email,
                     timestamp: new Date().toLocaleString()
                 };
-
                 try {
+                    // Send the report email
                     const response = await emailjs.send(this.serviceID, this.templateID, templateParams);
                     console.log('Email sent successfully:', response);
+                    // Send reply email
                     await this.sendReplyEmail(formData);
                     return { success: true };
                 } catch (error) {
@@ -535,47 +497,4 @@
             async sendReplyEmail(formData) {
                 const replyParams = {
                     location: formData.location,
-                    pollutionType: formData.issueType,
-                    description: formData.description,
-                    mobile: formData.mobile,
-                    email: formData.email
-                };
-
-                try {
-                    const response = await emailjs.send(this.serviceID, this.replyTemplateID, replyParams);
-                    console.log('Reply email sent successfully:', response);
-                } catch (error) {
-                    console.error('Error sending reply email:', error);
-                }
-            }
-        }
-
-        // Form submission handler
-        document.getElementById('pollutionForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                mobile: document.getElementById('mobile').value,
-                location: document.getElementById('location').value,
-                issueType: document.getElementById('issueType').value,
-                description: document.getElementById('description').value
-            };
-
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
-            submitBtn.disabled = true;
-
-            const emailService = new EmailService();
-            const result = await emailService.sendReport(formData);
-
-            // Reset button
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-
-            if (result.success) {
-                // Show success modal
-                const successModal = new bootstrap.Modal
+                    pollutionType: formData.
